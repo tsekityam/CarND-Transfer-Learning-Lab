@@ -54,7 +54,7 @@ def main(_):
 
     a = Input(shape=X_train[0].shape)
     b = Flatten()(a)
-    b = Dense(nb_classes)(b)
+    b = Dense(nb_classes, activation='softmax')(b)
     model = Model(input=a, output=b)
 
     model.compile('adam', 'sparse_categorical_crossentropy', ['accuracy'])
