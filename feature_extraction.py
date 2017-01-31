@@ -10,6 +10,8 @@ FLAGS = flags.FLAGS
 # command line flags
 flags.DEFINE_string('training_file', '', "Bottleneck features training file (.p)")
 flags.DEFINE_string('validation_file', '', "Bottleneck features validation file (.p)")
+flags.DEFINE_integer('batch_size', 128, "Number of samples per gradient update")
+flags.DEFINE_integer('nb_epoch', 10, "The number of epochs to train the model")
 
 
 def load_bottleneck_data(training_file, validation_file):
@@ -58,7 +60,7 @@ def main(_):
     model.compile('adam', 'sparse_categorical_crossentropy', ['accuracy'])
 
     # train your model here
-    history = model.fit(X_train, y_train, batch_size=128, nb_epoch=10, validation_data=(X_val, y_val))
+    history = model.fit(X_train, y_train, batch_size=FLAGS.batch_size, nb_epoch=FLAGS.nb_epoch, validation_data=(X_val, y_val))
 
 # parses flags and calls the `main` function above
 if __name__ == '__main__':
